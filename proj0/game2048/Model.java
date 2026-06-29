@@ -184,15 +184,11 @@ public class Model extends Observable {
         } else {
             // way two check if adjacent tile have same value
             for (int i = 0; i < b.size(); i++) {
-                //debug
-                // System.out.printf("Column %s", i);
-                // System.out.println(" ");
-
                 for (int j = 0; j < b.size(); j++) {
                     // go through column from the end of left and end of right
                     // check by going all the way up
                     if (j < 3) {
-                        // start from the must bottom (most left & most down)
+                        // check from the bottom to upper (most left & most down)
                         Tile curColTile = b.tile(i, j);
                         int nextUpperTileIndex = j+1;
                         Tile curUpperNextTile = b.tile(i, nextUpperTileIndex);
@@ -203,11 +199,11 @@ public class Model extends Observable {
                         // System.out.printf("NextTileValue: %s", curUpperNextTile);
                         // System.out.println(" ");
 
-                        // then check from right to the left (most left & most down)
                         if (curColTile.value() == curUpperNextTile.value()) {
                             return true;
                         }
 
+                        // then check from left to the right (most left & most down)
                         Tile curRowTile = b.tile(j, i);
                         int nextLeftTileIndex = j + 1;
                         Tile curLeftNextTile = b.tile(nextLeftTileIndex, i);
