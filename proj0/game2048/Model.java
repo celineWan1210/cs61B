@@ -2,6 +2,7 @@ package game2048;
 
 import java.util.Formatter;
 import java.util.Observable;
+import java.util.TreeMap;
 
 
 /** The state of a game of 2048.
@@ -177,10 +178,39 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
+        // way 1: at least one empty space means move exists
+        if (emptySpaceExists(b)) {
+            return true;
+        } else {
+            // way two check if adjacent tile have same value
+            for (int i = 0; i < b.size(); i++) {
+                //debug
+                System.out.printf("Column %s", i);
+                System.out.println(" ");
+
+                for (int j = 0; j < b.size(); j++) {
+                    // go through column from the end of left and end of right
+                    // check by going all the way up
+                    if (j < 3) {
+                        Tile curTile = b.tile(i, j);
+                        int nextUpperTileIndex = j+1;
+                        Tile curNextTile = b.tile(i, nextUpperTileIndex);
+
+                        // debug
+                        System.out.printf("CurrentTileValue: %s", curTile);
+                        System.out.println(" ");
+                        System.out.printf("NextTileValue: %s", curNextTile);
+                        System.out.println(" ");
+
+                        if (curTile.value() == curNextTile.value()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
-
 
     @Override
      /** Returns the model as a string, used for debugging. */
