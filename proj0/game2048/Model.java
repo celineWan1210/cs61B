@@ -185,28 +185,44 @@ public class Model extends Observable {
             // way two check if adjacent tile have same value
             for (int i = 0; i < b.size(); i++) {
                 //debug
-                System.out.printf("Column %s", i);
-                System.out.println(" ");
+                // System.out.printf("Column %s", i);
+                // System.out.println(" ");
 
                 for (int j = 0; j < b.size(); j++) {
                     // go through column from the end of left and end of right
                     // check by going all the way up
                     if (j < 3) {
-                        Tile curTile = b.tile(i, j);
+                        // start from the must bottom (most left & most down)
+                        Tile curColTile = b.tile(i, j);
                         int nextUpperTileIndex = j+1;
-                        Tile curNextTile = b.tile(i, nextUpperTileIndex);
+                        Tile curUpperNextTile = b.tile(i, nextUpperTileIndex);
 
                         // debug
-                        System.out.printf("CurrentTileValue: %s", curTile);
-                        System.out.println(" ");
-                        System.out.printf("NextTileValue: %s", curNextTile);
-                        System.out.println(" ");
+                        // System.out.printf("CurrentTileValue: %s", curColTile);
+                        // System.out.println(" ");
+                        // System.out.printf("NextTileValue: %s", curUpperNextTile);
+                        // System.out.println(" ");
 
-                        if (curTile.value() == curNextTile.value()) {
+                        // then check from right to the left (most left & most down)
+                        if (curColTile.value() == curUpperNextTile.value()) {
+                            return true;
+                        }
+
+                        Tile curRowTile = b.tile(j, i);
+                        int nextLeftTileIndex = j + 1;
+                        Tile curLeftNextTile = b.tile(nextLeftTileIndex, i);
+
+                        // debug
+                        // System.out.printf("CurrentTileValue: %s", curRowTile);
+                        // System.out.println(" ");
+                        // System.out.printf("NextTileValue: %s", curLeftNextTile);
+                        // System.out.println(" ");
+
+                        if (curRowTile.value() == curLeftNextTile.value()) {
                             return true;
                         }
                     }
-                }
+                    }
             }
         }
         return false;
