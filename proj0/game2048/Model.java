@@ -168,6 +168,7 @@ public class Model extends Observable {
                         if (board.tile(currentCol, nextTileRow).value() == board.tile(currentCol, j).value()) {
                             board.move(currentCol, j, board.tile(currentCol, nextTileRow));
                             System.out.println("Able to merge");
+                            score += board.tile(currentCol, j).value();
                             changed = true;
                             break;
                         } else {
