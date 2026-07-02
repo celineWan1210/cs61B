@@ -6,7 +6,7 @@ import java.util.TreeMap;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author Wan Ying Xuan
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -114,6 +114,24 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+
+        // set viewing perspective to the correct one
+        board.setViewingPerspective(side);
+
+//        for (int i = 0; i < board.size(); i++) {
+//            for (int j = 0; j < board.size(); j++) {
+//                Tile t = board.tile(i, j);
+//
+//                if (t != null) {
+//                    board.move(i, 3, t);
+//                }
+//                changed = true;
+//
+//            }
+//        }
+//
+        // reset to north after each click
+        board.setViewingPerspective(Side.NORTH);
 
         checkGameOver();
         if (changed) {
