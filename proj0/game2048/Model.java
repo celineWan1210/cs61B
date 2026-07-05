@@ -213,6 +213,7 @@ public class Model extends Observable {
 
     /**
      * Merge second tile to first tile
+     * - when merge need to add to score
      *
      * @param currentCol current column
      * @param firstTileRowValue first tile row value
@@ -220,6 +221,7 @@ public class Model extends Observable {
      */
     private void mergeRow(int currentCol, int firstTileRowValue, int secondTileRowValue) {
         board.move(currentCol, firstTileRowValue, tile(currentCol, secondTileRowValue));
+        this.score += tile(currentCol, firstTileRowValue).value();
     }
 
     /**
