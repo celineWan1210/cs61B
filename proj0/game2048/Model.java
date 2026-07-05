@@ -144,11 +144,11 @@ public class Model extends Observable {
             changed = true;
         }
 
-//        if (mergeExistsForColumn) {
-//            System.out.printf("Tile value for column %s match\n\n", currentCol);
-//        } else {
-//            System.out.printf("Tile value for column %s does not match\n\n", currentCol);
-//        }
+        if (mergeExistsForColumn) {
+            System.out.printf("Tile value for column %s match\n\n", currentCol);
+        } else {
+            System.out.printf("Tile value for column %s does not match\n\n", currentCol);
+        }
 
         return changed;
     }
@@ -201,6 +201,7 @@ public class Model extends Observable {
 
             // if they match and not null, means merge exists
             if (nextTile != null && currentTile != null && currentTile.value() == nextTile.value()) {
+                mergeRow(currentCol, j, j-1);
                 return true;
             }
 
@@ -208,6 +209,17 @@ public class Model extends Observable {
         }
 
         return false;
+    }
+
+    /**
+     * Merge second tile to first tile
+     *
+     * @param currentCol current column
+     * @param firstTileRowValue first tile row value
+     * @param secondTileRowValue second tile row value
+     */
+    private void mergeRow(int currentCol, int firstTileRowValue, int secondTileRowValue) {
+        board.move(currentCol, firstTileRowValue, tile(currentCol, secondTileRowValue));
     }
 
     /**
