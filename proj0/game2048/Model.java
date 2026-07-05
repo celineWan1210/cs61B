@@ -117,7 +117,10 @@ public class Model extends Observable {
             // set viewing perspective to the correct one
             board.setViewingPerspective(side);
             // only check column if its not empty
-            if (!checkColumnEmpty(i) && checkEachColumn(i)) {
+            if (!checkColumnEmpty(i) && validMoveExists(i)) {
+                moveTileUpwards(i);
+                mergeWholeRow(i);
+                moveTileUpwards(i);
                 changed = true;
             }
             // reset to north after each click
@@ -129,15 +132,6 @@ public class Model extends Observable {
             setChanged();
         }
         return changed;
-    }
-
-    private boolean checkEachColumn(int currentCol) {
-        // move all tile to most upwards possible (no merge yet)
-        moveTileUpwards(currentCol);
-        mergeWholeRow(currentCol);
-        moveTileUpwards(currentCol);
-
-        return true;
     }
 
     /**
@@ -188,6 +182,31 @@ public class Model extends Observable {
 
             j -= 1;
         }
+    }
+
+    /**
+     * If there is a valid tile under top row it should be able to perform tilt
+     *
+     * @param currentCol current column
+     * @return true / false to tilt the tiles
+     */
+    private boolean validMoveExists(int currentCol) {
+        int j = 3;
+        boolean validMoveExistFlag = false;
+
+        // check the row 3 times (for all 4 tiles to check)
+        while (j > 0) {
+            Tile nextTile = tile(currentCol, j-1);
+
+            // if they match and not null, means merge exists
+            // or if tile exists for below top tile (means can move to top tile)
+            if (nextTile != null) {
+                validMoveExistFlag = true;
+            }
+
+            j -= 1;
+        }
+        return validMoveExistFlag;
     }
 
     /**
