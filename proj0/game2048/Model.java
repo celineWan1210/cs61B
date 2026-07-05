@@ -146,6 +146,7 @@ public class Model extends Observable {
 
         if (mergeExistsForColumn) {
             System.out.printf("Tile value for column %s match\n\n", currentCol);
+            moveTileUpwards(currentCol);
         } else {
             System.out.printf("Tile value for column %s does not match\n\n", currentCol);
         }
