@@ -139,13 +139,52 @@ public class Model extends Observable {
         // merge exists boolean
         boolean mergeExistsForColumn = checkMergeExists(currentCol);
 
-        if (mergeExistsForColumn) {
-            System.out.printf("Tile value for column %s match\n\n", currentCol);
-        } else {
-            System.out.printf("Tile value for column %s does not match\n\n", currentCol);
-
+        // move all tile to most upwards possible (no merge yet)
+        if (moveTileUpwards(currentCol)){
+            changed = true;
         }
 
+//        if (mergeExistsForColumn) {
+//            System.out.printf("Tile value for column %s match\n\n", currentCol);
+//        } else {
+//            System.out.printf("Tile value for column %s does not match\n\n", currentCol);
+//        }
+
+        return changed;
+    }
+
+    /**
+     * Try to move all tile to the upper one
+     * - if the upper column is empty then move the available tile up to that emtpy column
+     * - else move it to the next available tile
+     * @param currentCol
+     */
+    private boolean moveTileUpwards(int currentCol){
+        boolean changed = false;
+
+        for (int j = 3; j > 0; j--) {
+            Tile currentTile = tile(currentCol, j);
+
+            if (currentTile == null) {
+                System.out.println("Current Tile is empty");
+
+                int nextTileRowValue = j-1;
+                // check the remaining tile to see if there is any others that can move upwards
+                while (nextTileRowValue >= 0) {
+                    Tile nextTile = tile(currentCol, nextTileRowValue);
+
+                    if (nextTile != null) {
+                        System.out.printf("Move tile from row %s to %s\n", nextTileRowValue, j);
+                        board.move(currentCol, j, nextTile);
+                        changed = true;
+                        break;
+                    } else {
+                        nextTileRowValue -= 1;
+                    }
+                }
+            }
+        }
+        System.out.println();
         return changed;
     }
 
