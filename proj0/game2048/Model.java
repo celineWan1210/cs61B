@@ -113,19 +113,16 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
-
-        // set viewing perspective to the correct one
-        board.setViewingPerspective(side);
-
         for (int i = 0; i < board.size(); i++) {
+            // set viewing perspective to the correct one
+            board.setViewingPerspective(side);
             // only check column if its not empty
             if (!checkColumnEmpty(i) && checkEachColumn(i)) {
                 changed = true;
             }
+            // reset to north after each click
+            board.setViewingPerspective(Side.NORTH);
         }
-
-        // reset to north after each click
-        board.setViewingPerspective(Side.NORTH);
 
         checkGameOver();
         if (changed) {
@@ -135,23 +132,12 @@ public class Model extends Observable {
     }
 
     private boolean checkEachColumn(int currentCol) {
-        boolean changed = false;
-
         // move all tile to most upwards possible (no merge yet)
-        if (moveTileUpwards(currentCol)){
-            changed = true;
-        }
-        // merge exists boolean
-        boolean mergeExistsForColumn = checkMergeExists(currentCol);
+        moveTileUpwards(currentCol);
+        mergeWholeRow(currentCol);
+        moveTileUpwards(currentCol);
 
-        if (mergeExistsForColumn) {
-            System.out.printf("Tile value for column %s match\n\n", currentCol);
-            moveTileUpwards(currentCol);
-        } else {
-            System.out.printf("Tile value for column %s does not match\n\n", currentCol);
-        }
-
-        return changed;
+        return true;
     }
 
     /**
@@ -160,9 +146,7 @@ public class Model extends Observable {
      * - else move it to the next available tile
      * @param currentCol
      */
-    private boolean moveTileUpwards(int currentCol){
-        boolean changed = false;
-
+    private void moveTileUpwards(int currentCol){
         for (int j = 3; j > 0; j--) {
             Tile currentTile = tile(currentCol, j);
 
@@ -177,7 +161,6 @@ public class Model extends Observable {
                     if (nextTile != null) {
                         System.out.printf("Move tile from row %s to %s\n", nextTileRowValue, j);
                         board.move(currentCol, j, nextTile);
-                        changed = true;
                         break;
                     } else {
                         nextTileRowValue -= 1;
@@ -185,11 +168,9 @@ public class Model extends Observable {
                 }
             }
         }
-        System.out.println();
-        return changed;
     }
 
-    private boolean checkMergeExists(int currentCol) {
+    private void mergeWholeRow(int currentCol) {
         // start from most upper tile
         int j = 3;
 
@@ -203,13 +184,10 @@ public class Model extends Observable {
             // if they match and not null, means merge exists
             if (nextTile != null && currentTile != null && currentTile.value() == nextTile.value()) {
                 mergeRow(currentCol, j, j-1);
-                return true;
             }
 
             j -= 1;
         }
-
-        return false;
     }
 
     /**
