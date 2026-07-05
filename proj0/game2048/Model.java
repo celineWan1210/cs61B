@@ -118,7 +118,8 @@ public class Model extends Observable {
         board.setViewingPerspective(side);
 
         for (int i = 0; i < board.size(); i++) {
-            if (checkEachColumn(i)) {
+            // only check column if its not empty
+            if (!checkColumnEmpty(i) && checkEachColumn(i)) {
                 changed = true;
             }
         }
@@ -135,59 +136,116 @@ public class Model extends Observable {
 
     private boolean checkEachColumn(int currentCol) {
         boolean changed = false;
+        // merge exists boolean
+        boolean mergeExistsForColumn = checkMergeExists(currentCol);
 
-        for (int j = 3; j > -1; j --) {
-            // current Tile that can move to
-            Tile currentTile = board.tile(currentCol, j);
-
-            // if currentTile is empty
-            // find the tile to move to it
-            if (currentTile == null) {
-                System.out.printf("Current row %s column %s is empty", currentCol, j);
-                System.out.println();
-
-                int nextTileRow = j-1;
-                while (nextTileRow >= 0) {
-                    if (board.tile(currentCol, nextTileRow) != null) {
-                        board.move(currentCol, j, board.tile(currentCol, nextTileRow));
-                        changed = true;
-                        break;
-                    } else {
-                        nextTileRow -= 1;
-                    }
-                }
-            } else {
-                int nextTileRow = j-1;
-                while (nextTileRow >= 0) {
-                    System.out.printf("Current row %s column %s is not empty", currentCol, j);
-                    System.out.println();
-
-                    // find the next available tile
-                    if (board.tile(currentCol, nextTileRow) != null) {
-                        // check with it can merge with the currentTile (uppestTile)
-                        if (board.tile(currentCol, nextTileRow).value() == board.tile(currentCol, j).value()) {
-                            board.move(currentCol, j, board.tile(currentCol, nextTileRow));
-                            System.out.println("Able to merge");
-                            score += board.tile(currentCol, j).value();
-                            changed = true;
-                            break;
-                        } else {
-                            System.out.println("Unable to merge");
-                            board.move(currentCol, j-1, board.tile(currentCol, nextTileRow));
-                            changed = true;
-                            break;
-                        }
-
-                    } else {
-                        nextTileRow -= 1;
-                    }
-                }
-            }
+        if (mergeExistsForColumn) {
+            System.out.printf("Tile value for column %s match\n\n", currentCol);
+        } else {
+            System.out.printf("Tile value for column %s does not match\n\n", currentCol);
 
         }
-        System.out.println();
+
         return changed;
     }
+
+    private boolean checkMergeExists(int currentCol) {
+        // start from most upper tile
+        int j = 3;
+
+        // check the row 3 times (for all 4 tiles to check)
+        while (j > 0) {
+            Tile currentTile = tile(currentCol, j);
+            Tile nextTile = tile(currentCol, j-1);
+            System.out.printf("Current Tile: %s\n", currentTile);
+            System.out.printf("Next Tile: %s\n", nextTile);
+
+            // if they match and not null, means merge exists
+            if (nextTile != null && currentTile != null && currentTile.value() == nextTile.value()) {
+                return true;
+            }
+
+            j -= 1;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the column is empty if yes means no action needed can just end early
+     *
+     * @param currentCol
+     * @return true / false
+     */
+    private boolean checkColumnEmpty(int currentCol) {
+        for (int j = 0; j < board.size(); j++) {
+            if (tile(currentCol, j) != null) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+//    private boolean checkEachColumn(int currentCol) {
+//        boolean changed = false;
+//
+//        for (int j = 3; j > -1; j --) {
+//            // current Tile that can move to
+//            Tile currentTile = board.tile(currentCol, j);
+//
+//            // if currentTile is empty
+//            // find the tile to move to it
+//            if (currentTile == null) {
+//                System.out.printf("Current row %s column %s is empty", currentCol, j);
+//                System.out.println();
+//
+//                int nextTileRow = j-1;
+//                while (nextTileRow >= 0) {
+//                    if (board.tile(currentCol, nextTileRow) != null) {
+//                        System.out.printf("Move %s from %s", j, nextTileRow);
+//                        System.out.println();
+//                        board.move(currentCol, j, board.tile(currentCol, nextTileRow));
+//                        changed = true;
+//                        break;
+//                    } else {
+//                        nextTileRow -= 1;
+//                    }
+//                }
+//            } else {
+//                int nextTileRow = j-1;
+//                while (nextTileRow >= 0) {
+//                    System.out.printf("Current row %s column %s is not empty", currentCol, j);
+//                    System.out.println();
+//
+//                    // find the next available tile
+//                    if (board.tile(currentCol, nextTileRow) != null) {
+//                        // check with it can merge with the currentTile (uppestTile)
+//                        if (board.tile(currentCol, nextTileRow).value() == board.tile(currentCol, j).value()) {
+//                            board.move(currentCol, j, board.tile(currentCol, nextTileRow));
+//                            System.out.println("Able to merge");
+//                            score += board.tile(currentCol, j).value();
+//                            changed = true;
+//                            break;
+//                        } else {
+//                            System.out.println("Unable to merge");
+//                            System.out.printf("Move to %s from %s", j-1, nextTileRow);
+//                            System.out.println();
+//                            board.move(currentCol, j-1, board.tile(currentCol, nextTileRow));
+//                            changed = true;
+//                            break;
+//                        }
+//
+//                    } else {
+//                        nextTileRow -= 1;
+//                    }
+//                }
+//            }
+//
+//        }
+//        System.out.println();
+//        return changed;
+//    }
 
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
