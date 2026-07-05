@@ -136,13 +136,13 @@ public class Model extends Observable {
 
     private boolean checkEachColumn(int currentCol) {
         boolean changed = false;
-        // merge exists boolean
-        boolean mergeExistsForColumn = checkMergeExists(currentCol);
 
         // move all tile to most upwards possible (no merge yet)
         if (moveTileUpwards(currentCol)){
             changed = true;
         }
+        // merge exists boolean
+        boolean mergeExistsForColumn = checkMergeExists(currentCol);
 
         if (mergeExistsForColumn) {
             System.out.printf("Tile value for column %s match\n\n", currentCol);
