@@ -4,6 +4,17 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class SquarePrimesTest {
+    /**
+     * Test that should return everything as the same and return false
+     * as there is no primes to square
+     */
+    @Test
+    public void testSquarePrimeAllRemain() {
+        IntList lst = IntList.of(14, 15, 16, 18, 20);
+        boolean changed = IntListExercises.squarePrimes(lst);
+        assertEquals("14 -> 15 -> 16 -> 18 -> 20", lst.toString());
+        assertFalse(changed);
+    }
 
     /**
      * Here is a test for isPrime method. Try running it.
@@ -16,18 +27,6 @@ public class SquarePrimesTest {
         boolean changed = IntListExercises.squarePrimes(lst);
         assertEquals("14 -> 15 -> 16 -> 289 -> 18", lst.toString());
         assertTrue(changed);
-    }
-
-    /**
-     * Test that should return everything as the same and return false
-     * as there is no primes to square
-     */
-    @Test
-    public void testSquarePrimeAllRemain() {
-        IntList lst = IntList.of(14, 15, 16, 18, 20);
-        boolean changed = IntListExercises.squarePrimes(lst);
-        assertEquals("14 -> 15 -> 16 -> 18 -> 20", lst.toString());
-        assertFalse(changed);
     }
 
     /**
