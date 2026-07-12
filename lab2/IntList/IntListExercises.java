@@ -10,11 +10,11 @@ public class IntListExercises {
      */
     public static void addConstant(IntList lst, int c) {
         IntList head = lst;
-        while (head.rest != null) {
+        // as long as head is not null, means not yet reach end of the list
+        while (head != null) {
             head.first += c;
             head = head.rest;
         }
-        head.first += c;
     }
 
     /**
