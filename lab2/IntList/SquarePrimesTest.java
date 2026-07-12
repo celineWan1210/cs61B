@@ -40,4 +40,12 @@ public class SquarePrimesTest {
         assertEquals("4 -> 9 -> 25 -> 49", lst.toString());
         assertTrue(changed);
     }
+
+    @Test
+    public void testSquarePrimtePartialSquare() {
+        IntList lst = IntList.of(2, 3, 5, 14);
+        boolean changed = IntListExercises.squarePrimes(lst);
+        assertEquals("4 -> 9 -> 25 -> 14", lst.toString());
+        assertTrue(changed);
+    }
 }
