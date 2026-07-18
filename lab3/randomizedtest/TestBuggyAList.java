@@ -69,7 +69,7 @@ public class TestBuggyAList {
                 // last item get remove from L
                 int lastLItem = L.removeLast();
                 // last item get remove from buggy L
-                int lastBuggyLItem = L.removeLast();
+                int lastBuggyLItem = buggyL.removeLast();
 
                 // print for L list
                 System.out.println("removeLast(" + lastLItem + ")");
