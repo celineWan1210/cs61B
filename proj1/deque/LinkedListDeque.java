@@ -31,6 +31,15 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
+    /**
+     * IF item is first in the whole list
+     * - make that the sentinel node
+     * ELSE
+     * - let sentinel point to new node
+     * - update previous sentinel node to point to new sentinel
+     * - update last node to point to new sentinel
+     * @param item to add into front of the list
+     */
     public void addFirst(T item) {
         if (size == 0) {
             sentinel = new IntNode(null, item, null);
