@@ -1,11 +1,24 @@
 package deque;
 
 public class LinkedListDeque<T> {
+    /**
+     * Int node class with the current item and a node that point to the next item
+     */
+    private static class IntNode {
+        public int item;
+        public IntNode next;
+
+        public IntNode(int i, IntNode n) {
+            item = i;
+            next = n;
+        }
+    }
     // size of array
     private int size;
     // array of items
     private T[] items;
-
+    // node that point to the first item
+    private IntNode sentinal;
 
     /**
      * A size of 100 0s are instantiate by default
