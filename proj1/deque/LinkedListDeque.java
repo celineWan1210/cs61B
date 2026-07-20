@@ -161,7 +161,22 @@ public class LinkedListDeque<T> {
         return nodeToRemove.item;
     }
 
+    /**
+     * Keep iterate until get to the desired item / return null if no item is found
+     * @param index of the item
+     * @return null or item
+     */
     public T get(int index) {
+        // start from first node
+        IntNode node = sentinel;
+
+        for (int i = 0; i < size; i ++) {
+            if (i == index) {
+                return node.item;
+            }
+            node = node.next;
+        }
+
         return null;
     }
 
