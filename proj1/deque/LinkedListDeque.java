@@ -55,7 +55,7 @@ public class LinkedListDeque<T> {
             sentinel = new IntNode(lastNode, item, previousSentinelNode);
 
             // set the previous sentinel node (now second front) to point to the sentinel
-            previousSentinelNode.previous = previousSentinelNode;
+            previousSentinelNode.previous = sentinel;
             // set the last node to point to the new sentinel
             lastNode.next = sentinel;
         }
