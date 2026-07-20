@@ -21,21 +21,39 @@ public class LinkedListDeque<T> {
 
     // size of array
     private int size;
-    // array of items
-    private T[] items;
     // node that point to the first item
-    private IntNode sentinal;
+    private IntNode sentinel;
 
     /**
      * A size of 100 0s are instantiate by default
      */
     public LinkedListDeque() {
-        items = (T[]) new Object[3];
         size = 0;
     }
 
     public void addFirst(T item) {
-        //
+        if (size == 0) {
+            sentinel = new IntNode(null, item, null);
+            sentinel.next = sentinel;
+            sentinel.previous = sentinel;
+        } else {
+            // last node
+            IntNode lastNode = sentinel.previous;
+            // second node to sentinel
+            IntNode previousSentinelNode = sentinel;
+
+            // new node set as sentinel
+            // - prev set to point to last node
+            // - next set to point to previous sentinel node
+            sentinel = new IntNode(lastNode, item, previousSentinelNode);
+
+            // set the previous sentinel node (now second front) to point to the sentinel
+            previousSentinelNode.previous = previousSentinelNode;
+            // set the last node to point to the new sentinel
+            lastNode.next = sentinel;
+        }
+
+        size += 1;
     }
 
     public void addLast(T item) {
