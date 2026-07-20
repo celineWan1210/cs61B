@@ -42,9 +42,7 @@ public class LinkedListDeque<T> {
      */
     public void addFirst(T item) {
         if (size == 0) {
-            sentinel = new IntNode(null, item, null);
-            sentinel.next = sentinel;
-            sentinel.previous = sentinel;
+            setSentinel(item);
         } else {
             // last node
             IntNode lastNode = sentinel.previous;
@@ -66,7 +64,23 @@ public class LinkedListDeque<T> {
     }
 
     public void addLast(T item) {
-        //
+        // if size is 0 means it's the sentinel
+        if (size == 0) {
+            setSentinel(item);
+        } else {
+
+        }
+    }
+
+    /**
+     * When the item is the first in the list,
+     * - sentinel is automatically set to that first item
+     * @param item first item to add to the list
+     */
+    private void setSentinel(T item) {
+        sentinel = new IntNode(null, item, null);
+        sentinel.next = sentinel;
+        sentinel.previous = sentinel;
     }
 
     /**
