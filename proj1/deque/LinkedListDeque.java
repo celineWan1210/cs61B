@@ -1,5 +1,7 @@
 package deque;
 
+import jh61b.junit.In;
+
 public class LinkedListDeque<T> {
     /**
      * Int node class with the
@@ -122,7 +124,18 @@ public class LinkedListDeque<T> {
         return size;
     }
 
+    /**
+     * print the items in the deque from first to last
+     * - separated by space and a new line after all items are printed out
+     */
     public void printDeque() {
+        // start from first node
+        IntNode node = sentinel;
 
+        for (int i = 0; i < size; i++) {
+            System.out.print(node.item + " ");
+            node = node.next;
+        }
+        System.out.println();
     }
 }
