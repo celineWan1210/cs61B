@@ -27,6 +27,10 @@ public class LinkedListDeque<T> {
         return false;
     }
 
+    /**
+     * -- constant time
+     * @return size of the linked list deque
+     */
     public int size() {
         return size;
     }
