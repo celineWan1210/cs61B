@@ -110,4 +110,28 @@ public class LinkedListDequeTest {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
     }
+
+    @Test
+    public void getTest() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        lld1.addFirst(10);
+        lld1.addFirst(20);
+        lld1.addFirst(30);
+        lld1.addFirst(40);
+
+        int getSecondIndex = lld1.get(1);
+
+        assertEquals(30, getSecondIndex);
+    }
+
+    @Test
+    public void getNullTest() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        lld1.addFirst(10);
+        lld1.addFirst(20);
+        lld1.addFirst(30);
+        lld1.addFirst(40);
+
+        assertNull(lld1.get(4));
+    }
 }
