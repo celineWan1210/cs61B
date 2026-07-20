@@ -23,7 +23,14 @@ public class LinkedListDeque<T> {
         //
     }
 
+    /**
+     * If size is not zero then its not empty
+     * @return True if linked list is empty / false if its not empty
+     */
     public boolean isEmpty() {
+        if (size == 0) {
+            return true;
+        }
         return false;
     }
 
