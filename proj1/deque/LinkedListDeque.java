@@ -68,8 +68,18 @@ public class LinkedListDeque<T> {
         if (size == 0) {
             setSentinel(item);
         } else {
+            // previous last node
+            IntNode previousLastNode = sentinel.previous;
+            // current last node
+            IntNode lastNode = new IntNode(previousLastNode, item, sentinel);
 
+            // set sentinel previous to point at the last node
+            sentinel.previous = lastNode;
+            // set previous last node to point to the new node
+            previousLastNode.next = lastNode;
         }
+
+        size += 1;
     }
 
     /**
