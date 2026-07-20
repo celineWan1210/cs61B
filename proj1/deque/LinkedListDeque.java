@@ -131,7 +131,24 @@ public class LinkedListDeque<T> {
     }
 
     public T removeLast() {
-        return null;
+        // if list is empty, nothing to remove
+        // return null
+        if (isEmpty()) {
+            return null;
+        }
+        IntNode nodeToRemove = sentinel.previous;
+        // new last node
+        IntNode lastNode = nodeToRemove.previous;
+
+        if (size == 1) {
+           sentinel = null;
+        } else {
+            sentinel.previous = lastNode;
+            lastNode.next = sentinel;
+        }
+
+        size -= 1;
+        return nodeToRemove.item;
     }
 
     public T get(int index) {
