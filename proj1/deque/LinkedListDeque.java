@@ -130,6 +130,16 @@ public class LinkedListDeque<T> {
         return nodeToRemove.item;
     }
 
+    /**
+     * IF list is empty
+     * ELSE
+     * - IF size is 1 set sentinel to null
+     * - ELSE
+     *      - set sentinel's previous to point at new last node
+     *      - set new last node's next to point at sentinel
+     * - reduce size by 1
+     * @return null / or the last node's item
+     */
     public T removeLast() {
         // if list is empty, nothing to remove
         // return null
