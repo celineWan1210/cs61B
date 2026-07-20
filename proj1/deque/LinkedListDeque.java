@@ -63,6 +63,16 @@ public class LinkedListDeque<T> {
         size += 1;
     }
 
+    /**
+     * IF item is first in the whole list
+     * - make that the sentinel node
+     * ELSE
+     * - get the previous last node
+     * - set the current last node
+     * - update sentinel's previous to the new last node
+     * - update previous sentinel's last node to point at last node
+     * @param item to add to the end of the list
+     */
     public void addLast(T item) {
         // if size is 0 means it's the sentinel
         if (size == 0) {
