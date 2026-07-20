@@ -2,17 +2,23 @@ package deque;
 
 public class LinkedListDeque<T> {
     /**
-     * Int node class with the current item and a node that point to the next item
+     * Int node class with the
+     *  - a node that points to the previous item
+     *  - current item
+     *  - a node that point to the next item
      */
-    private static class IntNode {
-        public int item;
+    private class IntNode {
+        public T item;
         public IntNode next;
+        public IntNode previous;
 
-        public IntNode(int i, IntNode n) {
+        public IntNode(IntNode p, T i, IntNode n) {
+            previous = p;
             item = i;
             next = n;
         }
     }
+
     // size of array
     private int size;
     // array of items
@@ -24,7 +30,7 @@ public class LinkedListDeque<T> {
      * A size of 100 0s are instantiate by default
      */
     public LinkedListDeque() {
-        items = (T[]) new Object[100];
+        items = (T[]) new Object[3];
         size = 0;
     }
 
