@@ -95,6 +95,50 @@ public class LinkedListDeque<T> {
     }
 
     /**
+     * IF list is empty
+     * ELSE
+     * - IF size is 1 set sentinel to null
+     * - ELSE
+     *      - set new sentinel as the next sentinel
+     *      - update sentinel's previous to point at last node
+     *      - update last node's next to point at sentinel
+     *
+     * - reduce size and return the old sentinel's item
+     * @return null / or the sentinel's item
+     */
+    public T removeFirst() {
+        // if list is empty, nothing to remove
+        // return null
+        if (isEmpty()) {
+            return null;
+        }
+
+        IntNode nodeToRemove = sentinel;
+        if (size == 1) {
+            sentinel = null;
+        } else {
+            IntNode lastNode = sentinel.previous;
+
+            // set second item as the new sentinel
+            sentinel = sentinel.next;
+            // update new sentinel previous to point at last node
+            sentinel.previous = lastNode;
+            // update last node to point to new sentinel
+            lastNode.next = sentinel;
+        }
+        size -= 1;
+        return nodeToRemove.item;
+    }
+
+    public T removeLast() {
+        return null;
+    }
+
+    public T get(int index) {
+        return null;
+    }
+
+    /**
      * When the item is the first in the list,
      * - sentinel is automatically set to that first item
      * @param item first item to add to the list
