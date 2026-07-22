@@ -132,6 +132,30 @@ public class LinkedListDequeTest {
         lld1.addFirst(30);
         lld1.addFirst(40);
 
-        assertNull(lld1.get(4));
+        assertNull(lld1.get(-1));
+    }
+
+    @Test
+    public void getRecursiveTest() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        lld1.addFirst(10);
+        lld1.addFirst(20);
+        lld1.addFirst(30);
+        lld1.addFirst(40);
+
+        int getSecondIndex = lld1.getRecursive(2);
+
+        assertEquals(20, getSecondIndex);
+    }
+
+    @Test
+    public void getNullRecursiveTest() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        lld1.addFirst(10);
+        lld1.addFirst(20);
+        lld1.addFirst(30);
+        lld1.addFirst(40);
+
+        assertNull(lld1.getRecursive(-1));
     }
 }
