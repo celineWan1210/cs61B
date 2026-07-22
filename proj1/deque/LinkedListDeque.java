@@ -244,6 +244,16 @@ public class LinkedListDeque<T> {
         return size;
     }
 
+    /**
+     * Return false if
+     * - objects are not the same instance
+     * - objects are not same size
+     * - object are not equal to each other
+     * Else return True
+     *
+     * @param o the reference object with which to compare.
+     * @return true if both objects are equal and false otherwise
+     */
     public boolean equals(Object o) {
         if (!(o instanceof LinkedListDeque)) {
             return false;
