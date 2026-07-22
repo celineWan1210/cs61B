@@ -210,6 +210,14 @@ public class LinkedListDeque<T> {
         return size;
     }
 
+    public boolean equals(Object o) {
+        return false;
+    }
+
+    public T getRecursive(int index) {
+        return null;
+    }
+
     /**
      * print the items in the deque from first to last
      * - separated by space and a new line after all items are printed out
