@@ -245,7 +245,23 @@ public class LinkedListDeque<T> {
     }
 
     public boolean equals(Object o) {
-        return false;
+        if (!(o instanceof LinkedListDeque)) {
+            return false;
+        } else if (((LinkedListDeque<?>) o).size() != size) {
+            return false;
+        }
+
+        IntNode nodeO = (IntNode) ((LinkedListDeque<?>) o).sentinel;
+        IntNode node = sentinel;
+
+        for (int i = 0; i < size; i++) {
+            if (nodeO.item != node.item) {
+                return false;
+            }
+            nodeO = nodeO.next;
+            node = node.next;
+        }
+        return true;
     }
 
     /**
