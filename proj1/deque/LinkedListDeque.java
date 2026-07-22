@@ -9,7 +9,7 @@ public class LinkedListDeque<T> {
      *  - current item
      *  - a node that point to the next item
      */
-    private class IntNode {
+    public class IntNode {
         public T item;
         public IntNode next;
         public IntNode previous;
@@ -181,6 +181,40 @@ public class LinkedListDeque<T> {
     }
 
     /**
+     * Recursion start with the sentinel and listIndex of zero
+     * @param index of the item we want to find
+     * @return item if found or null when it's out of bound
+     *
+     * @source <a href="https://softwareengineering.stackexchange.com/questions/279004/general-way-to-convert-a-loop-while-for-to-recursion-or-from-a-recursion-to-a">How to convert for loop to recursion</a>
+     */
+    public T getRecursive(int index) {
+        // start from first node
+        IntNode node = sentinel;
+        // start from first index of the list
+        int listIndex = 0;
+
+        return getRecursion(listIndex, index, node);
+    }
+
+    /**
+     * Base case to stop the recursion is when item is found or the index given was out of bound
+     * @param listIndex index of the list to keep going forward and try to match with the given index
+     * @param index that we want to match and find the item
+     * @param node node that allow us to keep pointing to the next item
+     * @return item if found or null when it's out of bound
+     */
+    public  T getRecursion(int listIndex, int index, IntNode node) {
+        if (listIndex == index) {
+            return node.item;
+        } else if (index >= size || index < 0) {
+            return null;
+        }
+
+        return getRecursion(listIndex+1, index, node.next);
+    }
+
+
+    /**
      * When the item is the first in the list,
      * - sentinel is automatically set to that first item
      * @param item first item to add to the list
@@ -212,10 +246,6 @@ public class LinkedListDeque<T> {
 
     public boolean equals(Object o) {
         return false;
-    }
-
-    public T getRecursive(int index) {
-        return null;
     }
 
     /**
