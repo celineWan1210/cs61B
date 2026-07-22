@@ -9,7 +9,7 @@ public class LinkedListDeque<T> {
      *  - current item
      *  - a node that point to the next item
      */
-    public class IntNode {
+    private class IntNode {
         public T item;
         public IntNode next;
         public IntNode previous;
@@ -203,7 +203,7 @@ public class LinkedListDeque<T> {
      * @param node node that allow us to keep pointing to the next item
      * @return item if found or null when it's out of bound
      */
-    public  T getRecursion(int listIndex, int index, IntNode node) {
+    private T getRecursion(int listIndex, int index, IntNode node) {
         if (listIndex == index) {
             return node.item;
         } else if (index >= size || index < 0) {
