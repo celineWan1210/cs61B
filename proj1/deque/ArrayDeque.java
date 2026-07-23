@@ -5,22 +5,58 @@ public class ArrayDeque<T> {
     private int size;
     // array of T items
     private T[] items;
+    // arraySize
+    private int arraySize;
+    // nextFirst
+    private int nextFirst;
+    // nextLast
+    private int nextLast;
 
     /**
      * Instantiate an array of 8 null at the start and size of 0
      */
     public ArrayDeque() {
+        // nextFirst set to 0
+        nextFirst = 4;
+        // nextLast set to 1
+        nextLast = 5;
+
         // instantiate of 8 null at the start
-        items = (T[]) new Object[8];
+        arraySize = 8;
+        items = (T[]) new Object[arraySize];
         size = 0;
     }
 
     public void addFirst(T item) {
+        if (size == arraySize) {
+            System.out.println("Array Full");
+        } else {
+            items[nextFirst] = item;
 
+            if (nextFirst == 0) {
+                nextFirst = arraySize - 1;
+            } else {
+                nextFirst -= 1;
+            }
+
+            size += 1;
+        }
     }
 
     public void addLast(T item) {
+        if (size == arraySize) {
+            System.out.println("Array Full");
+        } else {
+            items[nextLast] = item;
 
+            if (nextLast == arraySize - 1) {
+                nextLast = 0;
+            } else {
+                nextLast += 1;
+            }
+
+            size += 1;
+        }
     }
 
     /**
