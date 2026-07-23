@@ -6,8 +6,11 @@ public class ArrayDeque<T> {
     // array of T items
     private T[] items;
 
+    /**
+     * Instantiate an array of 8 null at the start and size of 0
+     */
     public ArrayDeque() {
-        // instantiate of 8 0s at the start
+        // instantiate of 8 null at the start
         items = (T[]) new Object[8];
         size = 0;
     }
@@ -20,7 +23,13 @@ public class ArrayDeque<T> {
 
     }
 
+    /**
+     * @return true if size is 0 (no items) else false if deque contains item
+     */
     public boolean isEmpty() {
+        if (size == 0) {
+            return true;
+        }
         return false;
     }
 
