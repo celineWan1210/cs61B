@@ -27,6 +27,10 @@ public class ArrayDeque<T> {
         size = 0;
     }
 
+    /**
+     * Add item to the front of the list
+     * @param item that we want to add to the front
+     */
     public void addFirst(T item) {
         if (size == arraySize) {
             System.out.println("Array Full");
@@ -43,6 +47,10 @@ public class ArrayDeque<T> {
         }
     }
 
+    /**
+     * Add item to the end of the list
+     * @param item we want to add to the end of the list
+     */
     public void addLast(T item) {
         if (size == arraySize) {
             System.out.println("Array Full");
@@ -84,7 +92,14 @@ public class ArrayDeque<T> {
         return null;
     }
 
+    /**
+     * print the items in the deque from first to last
+     * - separated by space and a new line after all items are printed out
+     */
     public void printDeque() {
-
+        for (int i = 0; i < size; i++) {
+            System.out.print(items[i] + " ");
+        }
+        System.out.println();
     }
 }
